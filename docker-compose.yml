@@ -1,0 +1,32 @@
+version: "3.7"
+
+services:
+  mysql-db:
+    image: mysql/mysql-server:5.7
+    environment:
+      MYSQL_HOST: localhost
+      MYSQL_ROOT_PASSWORD: pass
+      MYSQL_USER: root
+      MYSQL_PASSWORD: pass
+      MYSQL_DATABASE: takl_challenge
+    ports:
+      - "3307:3306"
+    expose:
+      - "3307"
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: unless-stopped
+  node-app:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    depends_on:
+      - mysql-db
+    ports:
+      - "8081:8080"
+    expose:
+      - "8081"
+
+volumes:
+  db_data:
+  notused:
