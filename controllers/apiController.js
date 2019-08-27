@@ -1,23 +1,6 @@
 'use strict';
 
 exports.createRequest = function (req, res) {
-/*var req = {
-  body: {
-    provider: 'some-random-provider',
-    geo_coordinates: [38.04503, -84.51458],
-    addresses: [{
-      street_address: '2309 meadow drive',
-      city: 'louisville',
-      state: 'ky',
-      zip: '40218'
-    },{
-      street_address: '427 nichol mill lane',
-      city: 'franklin',
-      state: 'TN',
-      zip: '37067'
-    }]
-  }
-}*/
   // Create Response Callbacks
   var errorCallBack = function(errors) {
     res.status(400).send(errors);

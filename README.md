@@ -41,7 +41,12 @@ This node package uses the Nearest Neighbor(NN) approximation method to determin
   5. You can now test out the `/providerRequest` endpoint by following the directions in the "API Endpoints" section below.
 
 ## API Endpoints
- - *POST* `/providerRequest`
+1. **POST** `/providerRequest`
+ - This Request takes in a pair of geo_coordinates for a starting point and then an array of addresses.
+   Using the HERE API, It will then geocode each address and generate a point-paired route matrix. Using that matrix,
+   it will use the NN approximation method to genereate a few route possibilities and pick the shortest route based on time.
+   The response is an array of objects with the geocodes coordinates and address. The objects are in the optimized order.
+ - Request
   Once the API is running send a POST request like the one below to `http://localhost:8080/providerRequest`
   ```
    {
@@ -53,6 +58,24 @@ This node package uses the Nearest Neighbor(NN) approximation method to determin
       ]
     }
   ```
+ - Response
+  Upon a successful request you should receive something similar to the following. :
+  ```
+   [
+     {"street_address":"2309 meadow drive","coordinates":[38.20584,-85.6625]},
+     {"street_address":"427 nichol mill lane","coordinates":[35.95608,-86.81908]}
+   ]
+  ```
+
+## ToDos
+ 1. Unit Testing
+ - This challenge only called for 80% code coverage... I hit `88.21` and I ran out of time with other challenges so I didn't test
+    sending invalid data to the functionality but I did cover validating the datatypes with `apiController.validateCreateData()`
+ 2. HERE API integration
+ - I'm assuming a success on the API calls for geocoded locations once the datatypes are validated.. I had a hard time _not_ receiving a latitude and longitude for locations outside of that.
+ - I could do a better job of logging errors and handling `fetch` error calls to the HERE API functionality.
+ 3. Organization
+ - I could fragment out some of `apiController()` and have some better organization with the helper functions.
 
 ## Links
 [TSP Overview](https://en.wikipedia.org/wiki/Travelling_salesman_problem)
