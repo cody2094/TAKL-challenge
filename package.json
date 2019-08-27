@@ -1,0 +1,38 @@
+{
+  "name": "takl-challenge",
+  "version": "1.0.0",
+  "description": "TAKLE challenge",
+  "author": "Cody Brown <cody2094@hotmail.com>",
+  "license": "MIT",
+  "main": "server.js",
+  "keywords": [
+    "nodejs",
+    "bootstrap",
+    "express",
+    "API",
+    "challenge"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cody2094/TAKL-challenge"
+  },
+  "dependencies": {
+    "cors": "^2.8.4",
+    "express": "^4.16.4",
+    "mysql2": "^1.6.1",
+    "node-fetch": "^2.6.0",
+    "nodemon": "^1.18.3",
+    "sequelize": "^5.16.0",
+    "sequelize-cli": "^5.5.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-http": "^2.0.1",
+    "mocha": "^6.2.0",
+    "nyc": "^14.1.1"
+  },
+  "scripts": {
+    "test": "nyc --reporter=text mocha --exit",
+    "start": "node server.js"
+  }
+}

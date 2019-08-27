@@ -1,0 +1,27 @@
+{
+  "development": {
+    "username": "root",
+    "password": "pass",
+    "database": "takl_challenge",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": "pass",
+    "database": "takl_challenge",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": "pass",
+    "database": "takl_challenge",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "api": {
+    "app_id":   "APP_ID",
+    "app_code": "APP_CODE"
+  }
+}
