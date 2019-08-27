@@ -31,7 +31,7 @@ This node package uses the Nearest Neighbor(NN) approximation method to determin
     TAKL/routes             |      100 |      100 |      100 |      100 |                   |
       apiRoutes.js          |      100 |      100 |      100 |      100 |                   |
     ------------------------|----------|----------|----------|----------|-------------------|
-    ```
+  ```
 
   ### Run In a docker container
   1. Using `config/config.dist.json`, create `config/config.json` and fill in the `api` and `db` properties with the correct HERE API and database settings
