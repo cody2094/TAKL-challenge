@@ -82,5 +82,5 @@ This node package uses the Nearest Neighbor(NN) approximation method to determin
  - Overall I could use promises to make things cleaner.
 
 ## Links
-[TSP Overview](https://en.wikipedia.org/wiki/Travelling_salesman_problem)
-[GeoLocation/Routing](https://developer.here.com)
+ - [TSP Overview](https://en.wikipedia.org/wiki/Travelling_salesman_problem)
+ - [GeoLocation/Routing](https://developer.here.com)
