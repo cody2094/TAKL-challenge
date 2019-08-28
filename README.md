@@ -10,9 +10,10 @@ This node package uses the Nearest Neighbor(NN) approximation method to determin
   1. Using `config/config.dist.json`, create `config/config.json` and fill in the `api` and `db` properties with the correct HERE API and database settings
   2. Install the package using `npm i` from the package root
   3. Run `sequelize db:migrate` from the package root. This will take care of setting up the database for you.
-  4. Run `npm start` from the root directory to start the API
-  5. You can now test out the `/providerRequest` endpoint by following the directions in the "API Endpoints" section below.
-  6. Alternatively you can run the tests by running `npm test`. This uses Karma for unit testing and nyc for code coverage. As of current writing the code coverage is as follows.
+  4. Run `npm start` from the root directory to start the API. By default it will use the development credentials
+  5. If you want to run the application in production mode you can run the command `npm run start-production`
+  6. You can now test out the `/providerRequest` endpoint by following the directions in the "API Endpoints" section below.
+  7. Alternatively you can run the tests by running `npm test`. This uses Karma for unit testing and nyc for code coverage. As of current writing the code coverage is as follows.
   ```
     ------------------------|----------|----------|----------|----------|-------------------|
     File                    |  % Stmts | % Branch |  % Funcs |  % Lines | Uncovered Line #s |
@@ -35,10 +36,11 @@ This node package uses the Nearest Neighbor(NN) approximation method to determin
 
   ### Run In a docker container
   1. Using `config/config.dist.json`, create `config/config.json` and fill in the `api` and `db` properties with the correct HERE API and database settings
-  2. For the first time around run `docker-compose up`.
-  3. To rebuild after making any changes run `docker-compose up --build`
-  4. I've got the DB set up to run on port 3307 locally so it doesn't interfeare with my local 3306 port but the server itself is on 3306. I've also done the same thing with the API. Its running on 8080 in the container but 8081 locally.
-  5. You can now test out the `/providerRequest` endpoint by following the directions in the "API Endpoints" section below.
+  2. Using `.env.dist`, create `.env` and fill in each variable. NODE_ENV should match whatever the property string you want to use from the config file. I've used "docker" and have them set up so that they will work right out of the box. DB_USER, DB_PASSWORD, DB must match the config settings for the associated property.
+  3. For the first time around run `docker-compose up`.
+  4. To rebuild after making any changes run `docker-compose up --build`
+  5. I've got the DB set up to run on port 3307 locally so it doesn't interfeare with my local 3306 port but the server itself is on 3306. I've also done the same thing with the API. Its running on 8080 in the container but 8081 locally.
+  6. You can now test out the `/providerRequest` endpoint by following the directions in the "API Endpoints" section below.
 
 ## API Endpoints
 1. **POST** `/providerRequest`
