@@ -75,7 +75,9 @@ This node package uses the Nearest Neighbor(NN) approximation method to determin
  - I'm assuming a success on the API calls for geocoded locations once the datatypes are validated.. I had a hard time _not_ receiving a latitude and longitude for locations outside of that.
  - I could do a better job of logging errors and handling `fetch` error calls to the HERE API functionality.
  3. Organization
- - I could fragment out some of `apiController()` and have some better organization with the helper functions.
+ - I could fragment out some of `apiController()` and have some better organization with the helper functions but I didn't spend a ton of time on it
+  given that there is only one API request.
+ - Overall I could use promises to make things cleaner.
 
 ## Links
 [TSP Overview](https://en.wikipedia.org/wiki/Travelling_salesman_problem)

@@ -1,5 +1,15 @@
 'use strict';
 
+/**
+ * This is the "create record" handler for the API request /providerRequest.
+ * It handles tying all of the different pieces together
+ *
+ * @param req   express request object
+ * @param res   express response object
+ *
+ * @see geocodeLocations
+ * @see geocodeRouteMatrix
+ */
 exports.createRequest = function (req, res) {
   // Create Response Callbacks
   var errorCallBack = function(errors) {
@@ -63,7 +73,13 @@ exports.createRequest = function (req, res) {
   }
 }
 
-
+/**
+ * This validates the data passed into the `/providerRequest` endpoint
+ *
+ * @param array   data
+ *
+ * @return        This will return an array of errors that will be empty upon success
+ */
 function validateCreateData(data) {
   var errors = [];
 
@@ -120,6 +136,14 @@ function validateCreateData(data) {
   return errors;
 }
 
+/**
+ * This takes the matrixEntries returned from the `geocodeRouteMatrix` controller
+ * and organizes them in more of a matrix format
+ *
+ * @param array   matrixEntries
+ *
+ * @return        A matrix format of start and destination keypairs
+ */
 function cleanRoutes(matrixEntries) {
   var cleanMatrix = [];
 
@@ -134,6 +158,17 @@ function cleanRoutes(matrixEntries) {
 }
 
 
+/**
+ * This takes the matrix from `cleanRoutes()` and calculates the minimum
+ * route using the Nearest Neighbor aproximation method
+ *
+ * @param array   matrix
+ *
+ * @return    [
+ *              minimumTime    => the total time for the most optimum route
+ *              optimizedRoute => an array containing the indices in the optimum order
+ *            ];
+ */
 function calculateMinimumRoute(matrix) {
   // Initialize Variables
   var totalDestinations = matrix[0].length;
@@ -170,6 +205,20 @@ function calculateMinimumRoute(matrix) {
   return [ minimumTime, optimizedRoute ];
 }
 
+
+/**
+ * This takes a row from the matrix in `calculateMinimumRoute()`
+ * and finds the minimum keypair being sure to ignore the keys we
+ * have already used
+ *
+ * @param array   matrixRow
+ * @param array   excludeKeys
+ *
+ * @return    [
+ *              minKey  => the key for the minimum destination
+ *              min     => the value for the minimum destination
+ *            ];
+ */
 function findMatrixMin(matrixRow, excludeKeys) {
   var min = null;
   var minKey = null;

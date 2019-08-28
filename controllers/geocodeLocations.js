@@ -2,31 +2,35 @@
 const fetch = require("node-fetch");
 const querystring = require('querystring');
 
-var geocodedLocations = [];
-var locationCounter = 0;
 const URLPrefix = "https://geocoder.api.here.com/6.2/geocode.json?";
 const config = require("../config/config.json").api;
 
+// This variable will hold on to all of the locations.
+var geocodedLocations = [];
+var locationCounter = 0;
+
+/**
+ * This is the main controller for the module that interacts with the
+ * HERE api to geocode locations. Locations are geocoded one at a time
+ * using chained promises.
+ *
+ * @param array      array of addresses
+ * @param function   the callback function to call once all locations
+ *                    are geocoded
+ */
 exports.geocodeLocations = function (addresses, finishedCallBack) {
-  /*var addresses = [
-    {
-      street_address: '2309 meadow drive',
-      city:           'louisville',
-      state:          'ky',
-      zip:            '40218',
-    },
-    {
-      street_address: '427 Nichol Mill Lane',
-      city:           'Franklin',
-      state:          'TN',
-      zip:            '37067',
-    }
-  ];*/
   var num_addresses = addresses.length;
   geocodeLocation(null, addresses, num_addresses, finishedCallBack);
 }
 
-
+/**
+ * This is a recursive function that chains requests to the HERE API
+ *
+ * @param mixed      Body               Be sure to pass null the first time around.
+ * @param function   addresses          The array of addresses to gecode
+ * @param array      total              total number of addresses
+ * @param function   finishedCallBack   the callback function to call once all locations
+ */
 function geocodeLocation(body, addresses, total, finishedCallBack) {
   var finished = (locationCounter === (total - 1))
   // If this is the first time around or we have reached the total don't increment the counter
@@ -52,7 +56,12 @@ function geocodeLocation(body, addresses, total, finishedCallBack) {
   return handleRequest(URL, locationCounter).then( body => geocodeLocation(body, addresses, total, finishedCallBack) );
 }
 
-
+/**
+ * This is a promise for handling the API call using `fetch`
+ *
+ * @param string    URL        The URL + query parameters
+ * @param number    index      Used to cache the location in `geocodedLocations`
+ */
 function handleRequest(URL, index) {
   return fetch(URL, { method : 'get' })
         .then( response => response.json() )
