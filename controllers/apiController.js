@@ -30,7 +30,7 @@ exports.createRequest = function (req, res) {
   var geocodeLocations = require('./geocodeLocations');
   geocodeLocations.geocodeLocations(req.body.addresses, geocodeMatrixCallback);
 
-  // This variable will be used in OptimizeRoutes in order to map the optimized order back
+  // This variable will be used in optimizeRoutes in order to map the optimized order back
   //  to the route information
   var destGeocodes = [];
   // Build gecodeMatrix
@@ -44,11 +44,11 @@ exports.createRequest = function (req, res) {
     geocodeRouteMatrix.geocodeRouteMatrix(startingGeocode, destinationGeocodes, optimizeRoutes);
   }
 
+  // Using Matrix find the Optimized Route
   function optimizeRoutes (routeMatrix) {
     var cleanedMatrix = cleanRoutes(routeMatrix);
     // Returns [ minimumTime, optimizedRoute ]
     var minimumRoute = calculateMinimumRoute(cleanedMatrix);
-
     // Build the Response Route
     var responseRoute = [];
     minimumRoute[1].forEach( function (value) {
@@ -61,6 +61,7 @@ exports.createRequest = function (req, res) {
     //console.log(responseRoute);
   }
 
+  // Now that we have optimized routes, insert the data
   function insertData(jsonResponse) {
     const requestLog = require('./requestlog');
     var data = {

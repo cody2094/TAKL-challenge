@@ -14,9 +14,9 @@ ENV PATH /opt/node_modules/.bin:$PATH
 
 COPY . .
 
-# Make sure db is ready to go
+# Make sure db is ready to go before we run sequelize and start the API
 RUN chmod +x ./wait-for.sh
-CMD sh -c './wait-for.sh mysql-db:3306 -- npm start'
+CMD sh -c './wait-for.sh mysql-db:3306 -- sequelize db:migrate && npm start'
 
 # Expose port
 EXPOSE 8080

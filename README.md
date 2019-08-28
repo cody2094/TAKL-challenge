@@ -67,7 +67,7 @@ This node package uses the Nearest Neighbor(NN) approximation method to determin
    ]
   ```
 
-## ToDos
+## To Dos
  1. Unit Testing
  - This challenge only called for 80% code coverage... I hit `88.21` and I ran out of time with other challenges so I didn't test
     sending invalid data to the functionality but I did cover validating the datatypes with `apiController.validateCreateData()`
