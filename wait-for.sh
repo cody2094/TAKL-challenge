@@ -1,7 +1,7 @@
 #!/bin/sh
 
-TIMEOUT=20
-QUIET=1
+TIMEOUT=15
+QUIET=0
 
 echoerr() {
   if [ "$QUIET" -ne 1 ]; then printf "%s\n" "$*" 1>&2; fi
@@ -22,7 +22,7 @@ USAGE
 wait_for() {
   for i in `seq $TIMEOUT` ; do
     nc -z "$HOST" "$PORT" > /dev/null 2>&1
-
+    
     result=$?
     if [ $result -eq 0 ] ; then
       if [ $# -gt 0 ] ; then
