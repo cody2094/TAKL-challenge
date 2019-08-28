@@ -4,18 +4,19 @@ services:
   mysql-db:
     image: mysql/mysql-server:5.7
     environment:
-      MYSQL_HOST: localhost
-      MYSQL_ROOT_PASSWORD: pass
-      MYSQL_USER: root
-      MYSQL_PASSWORD: pass
-      MYSQL_DATABASE: takl_challenge
+      MYSQL_ROOT_PASSWORD: ${ROOT_PASSWORD}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB}
     ports:
       - "3307:3306"
     expose:
       - "3307"
     volumes:
       - db_data:/var/lib/mysql
-    restart: unless-stopped
+    networks:
+      - takl-challenge
+
   node-app:
     build:
       context: ./
@@ -26,7 +27,12 @@ services:
       - "8081:8080"
     expose:
       - "8081"
+    networks:
+      - takl-challenge
 
 volumes:
   db_data:
-  notused:
+
+networks:
+  takl-challenge:
+    driver: bridge

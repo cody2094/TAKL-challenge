@@ -9,9 +9,8 @@ RUN npm i npm@latest -g
 WORKDIR /home/takl/challenge
 COPY package.json package-lock.json* ./
 RUN npm install && npm cache clean --force
-RUN npm install -g sequelize-cli
-ENV PATH /opt/node_modules/.bin:$PATH
-
+ENV PATH /home/takl/challenge/node_modules/.bin:$PATH
+ENV NODE_ENV docker
 COPY . .
 
 # Make sure db is ready to go before we run sequelize and start the API

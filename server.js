@@ -2,7 +2,8 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const Sequelize = require("sequelize");
-const dbConfig = require("./config/config.json").development;
+const env = process.env.NODE_ENV || 'development';
+const dbConfig = require("./config/config.json")[env];
 const port = 8080;
 const bodyParser = require('body-parser');
 
@@ -30,7 +31,6 @@ function dbConnect() {
     host: dbConfig.host,
     port: dbConfig.port,
     dialect: dbConfig.dialect,
-    operatorsAliases: false,
     pool: {
       max: 5,
       min: 0,
