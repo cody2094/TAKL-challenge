@@ -7,7 +7,7 @@ const config = require("../config/config.json").api;
 
 // This variable will hold on to all of the locations.
 var geocodedLocations = [];
-var locationCounter = 0;
+var locationIndex = 0;
 
 /**
  * This is the main controller for the module that interacts with the
@@ -32,17 +32,17 @@ exports.geocodeLocations = function (addresses, finishedCallBack) {
  * @param function   finishedCallBack   the callback function to call once all locations
  */
 function geocodeLocation(body, addresses, total, finishedCallBack) {
-  var finished = (locationCounter === (total - 1))
+  var finished = ( geocodedLocations.length === total);
   // If this is the first time around or we have reached the total don't increment the counter
   if ( body !== null && (!finished) ) {
     // We have an existing promise
-    locationCounter++;
+    locationIndex++;
   } else if ( finished ) {
     finishedCallBack(geocodedLocations);
     return 'Chained Promises Finished';
   }
 
-  var this_address = addresses[locationCounter];
+  var this_address = addresses[locationIndex];
   var search = Object.values(this_address).join(' ');
   var URLparams = {
     app_id:     config.app_id,
@@ -53,7 +53,7 @@ function geocodeLocation(body, addresses, total, finishedCallBack) {
   var URL = URLPrefix + URLparams;
 
   // This will recursively cycle through API requests chaining them together
-  return handleRequest(URL, locationCounter).then( body => geocodeLocation(body, addresses, total, finishedCallBack) );
+  return handleRequest(URL, locationIndex).then( body => geocodeLocation(body, addresses, total, finishedCallBack) );
 }
 
 /**

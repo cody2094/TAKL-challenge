@@ -58,7 +58,6 @@ exports.createRequest = function (req, res) {
       });
     });
     insertData(responseRoute);
-    //console.log(responseRoute);
   }
 
   // Now that we have optimized routes, insert the data
